@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   Users,
   UserPlus,
-  Mail,
-  User as UserIcon,
   Edit,
   Trash2,
   Crown,
@@ -13,7 +11,7 @@ import { useApp } from '../context/AppContext';
 import { User } from '../types';
 
 export function UserManagement() {
-  const { users, currentUser, addUser, updateUser, deleteUser, getCurrentBoardTasks, currentBoardId } = useApp();
+  const { users, currentUser, updateUser, deleteUser, getCurrentBoardTasks, currentBoardId } = useApp();
   const [showAddUser, setShowAddUser] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [formData, setFormData] = useState({
@@ -93,7 +91,7 @@ export function UserManagement() {
   };
 
   const getUserTaskStats = (userId: string) => {
-    const userTasks = tasks.filter(task => task.assigneeIds?.includes(userId) || task.assigneeId === userId);
+    const userTasks = tasks.filter(task => task.assigneeIds?.includes(userId));
     return {
       completed: userTasks.filter(task => task.status === 'completed').length,
       inProgress: userTasks.filter(task => task.status === 'in-progress').length,
@@ -253,7 +251,7 @@ export function UserManagement() {
                         {user.role === 'admin' ? (
                           <Crown className="w-3 h-3" />
                         ) : (
-                          <UserIcon className="w-3 h-3" />
+                          <Users className="w-3 h-3" />
                         )}
                         <span className="uppercase">
                           {user.role === 'admin' ? 'АДМИНИСТРАТОР' : 'ПОЛЬЗОВАТЕЛЬ'}
@@ -305,18 +303,16 @@ export function UserManagement() {
           </span>
         </div>
         
-      
-          {currentUser?.role === 'admin' && (
-            <button
-              onClick={() => setShowAddUser(true)}
-              className="flex items-center space-x-2 text-gray-800 px-4 py-2 rounded-xl font-medium uppercase"
-              style={{ backgroundColor: '#CFE8FF' }}
-            
-              <UserPlus className="w-5 h-5" />
-              <span>ДОБАВИТЬ ПОЛЬЗОВАТЕЛЯ</span>
-            </button>
-          )}
-        </div>
+        {currentUser?.role === 'admin' && (
+          <button
+            onClick={() => setShowAddUser(true)}
+            className="flex items-center space-x-2 text-gray-800 px-4 py-2 rounded-xl font-medium uppercase"
+            style={{ backgroundColor: '#CFE8FF' }}
+          >
+            <UserPlus className="w-5 h-5" />
+            <span>ДОБАВИТЬ ПОЛЬЗОВАТЕЛЯ</span>
+          </button>
+        )}
       </div>
 
       {/* Форма добавления/редактирования пользователя */}
@@ -442,7 +438,7 @@ export function UserManagement() {
                             {user.role === 'admin' ? (
                               <Crown className="w-3 h-3" />
                             ) : (
-                              <UserIcon className="w-3 h-3" />
+                              <Users className="w-3 h-3" />
                             )}
                             <span className="uppercase">
                               {user.role === 'admin' ? 'АДМИНИСТРАТОР' : 'ПОЛЬЗОВАТЕЛЬ'}

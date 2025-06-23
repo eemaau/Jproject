@@ -31,7 +31,23 @@ interface HeaderProps {
 }
 
 export function Header({ currentView, onViewChange, onCreateTask }: HeaderProps) {
-  const { currentUser, logout, boards, currentBoardId, setCurrentBoard, getCurrentBoardTasks, deleteBoard, generateBoardLink, notifications, updateBoard, undoLastAction, redoLastAction, can Undo, canRedo } = useApp();
+  const { 
+    currentUser, 
+    logout, 
+    boards, 
+    currentBoardId, 
+    setCurrentBoard, 
+    getCurrentBoardTasks, 
+    deleteBoard, 
+    generateBoardLink, 
+    notifications, 
+    updateBoard, 
+    undoLastAction, 
+    redoLastAction, 
+    canUndo, 
+    canRedo 
+  } = useApp();
+  
   const [showBoardDropdown, setShowBoardDropdown] = useState(false);
   const [showBoardModal, setShowBoardModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
